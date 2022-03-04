@@ -31,7 +31,7 @@ jobs:
      # Compiles classes to test 
       - name: compile classes
         working-directory: ./src
-        run: javac -cp "../testresources/junit-platform-console-standalone-1.6.0.jar" ./st101173/ST101173.java ./st101173/Message.java  "../test/st101173/ST101173Test.java"  "../test/st101173/MessageTest.java"  
+        run: javac -cp "../testresources/junit-platform-console-standalone-1.6.0.jar" ./st101173/ST101173.java ./st101173/Message.java ./st101173/Response.java  "../test/st101173/ST101173Test.java"  "../test/st101173/MessageTest.java" "../test/st101173/ResponseTest.java"  
 
     # list contents of src to verify that classess compiled 
       - name: List contents of src directory after compile
@@ -42,12 +42,12 @@ jobs:
        # copy compiled classes to test directory 
       - name : copy compiled classes to testresources directory 
         working-directory: ./src/st101173
-        run: cp -t  "../../test/st101173" Message.class ST101173.class
+        run: cp -t  "../../test/st101173" Message.class ST101173.class Response.class
         
         #copy compiled tests 
       - name : copy compiled Test classes to testresources directory 
         working-directory: ./test/st101173
-        run: cp -t  "../../testresources/" Message.class ST101173.class
+        run: cp -t  "../../testresources/" Message.class ST101173.class Response.class
         
         # list contents or directory
       - name: List contents test package
@@ -55,9 +55,16 @@ jobs:
         run: ls
         
         #run Message Class tests and output report 
-      - name: run Login Class tests and create report 
+      - name: run Messages Class tests and create report 
         working-directory: ./test
         run: |
          ls
          java -jar  "../testresources/junit-platform-console-standalone-1.6.0.jar" -cp "." --select-class  st101173.MessageTest  
+         
+            #run Message Class tests and output report 
+      - name: run Response Class tests and create report 
+        working-directory: ./test
+        run: |
+         ls
+         java -jar  "../testresources/junit-platform-console-standalone-1.6.0.jar" -cp "." --select-class  st101173.ResponseTest 
      
